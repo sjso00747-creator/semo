@@ -1,8 +1,5 @@
 import "dart:async";
 
-import "package:firebase_core/firebase_core.dart";
-import "package:firebase_crashlytics/firebase_crashlytics.dart";
-import "package:firebase_remote_config/firebase_remote_config.dart";
 import "package:flutter/material.dart";
 import "package:flutter/foundation.dart";
 import "package:flutter_bloc/flutter_bloc.dart";
@@ -13,27 +10,46 @@ import "package:logger/logger.dart";
 import "package:package_info_plus/package_info_plus.dart";
 import "package:index/bloc/app_bloc.dart";
 import "package:index/bloc/app_state.dart";
-import "package:index/firebase_options.dart";
+import "package:index/config/app_config.dart";
 import "package:index/screens/splash_screen.dart";
 import "package:index/services/preferences.dart";
 import "package:universal_back_gesture/back_gesture_config.dart";
 import "package:universal_back_gesture/back_gesture_page_transitions_builder.dart";
 
+// Firebase imports (conditional)
+import "package:firebase_core/firebase_core.dart" if (dart.library.io) "package:firebase_core/firebase_core.dart";
+import "package:firebase_crashlytics/firebase_crashlytics.dart" if (dart.library.io) "package:firebase_crashlytics/firebase_crashlytics.dart";
+import "package:firebase_remote_config/firebase_remote_config.dart" if (dart.library.io) "package:firebase_remote_config/firebase_remote_config.dart";
+import "package:index/firebase_options.dart" if (dart.library.io) "package:index/firebase_options.dart";
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await _initializeFirebase();
+  
+  // Initialize Firebase only if enabled
+  if (AppConfig.enableFirebase) {
+    await _initializeFirebase();
+  }
+  
   await AppPreferences.init();
   runApp(const Index());
 }
 
 Future<void> _initializeFirebase() async {
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  await _initializeCrashlytics();
-  await _initializeRemoteConfig();
+  if (!AppConfig.enableFirebase) return;
+  
+  try {
+    await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+    await _initializeCrashlytics();
+    await _initializeRemoteConfig();
+  } catch (e) {
+    Logger().e('Failed to initialize Firebase: $e');
+  }
 }
 
 Future<void> _initializeCrashlytics() async {
-  if (!kIsWeb) {
+  if (!AppConfig.enableCrashlytics || !kIsWeb) return;
+  
+  try {
     FirebaseCrashlytics crashlytics = FirebaseCrashlytics.instance;
     await runZonedGuarded<Future<void>>(() async {
       await crashlytics.setCrashlyticsCollectionEnabled(!kDebugMode);
@@ -41,10 +57,14 @@ Future<void> _initializeCrashlytics() async {
     }, (Object error, StackTrace stack) async {
       await crashlytics.recordError(error, stack, fatal: true);
     });
+  } catch (e) {
+    Logger().e('Failed to initialize Crashlytics: $e');
   }
 }
 
 Future<void> _initializeRemoteConfig() async {
+  if (!AppConfig.enableRemoteConfig) return;
+  
   try {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
     FirebaseRemoteConfig remoteConfig = FirebaseRemoteConfig.instance;

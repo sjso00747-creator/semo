@@ -25,6 +25,16 @@ export PATH=$PATH:$ANDROID_HOME/tools
 export PATH=$PATH:$ANDROID_HOME/platform-tools
 ```
 
+## خيارات البناء
+
+يمكنك بناء التطبيق بطريقتين:
+
+### الخيار الأول: بناء مع Firebase (الافتراضي)
+يتطلب إعداد Firebase وملفات التكوين
+
+### الخيار الثاني: بناء بدون Firebase (مستقل)
+لا يتطلب إعداد Firebase - مناسب للاختبار والتطوير
+
 ## إعداد المشروع
 
 ### 1. استنساخ المشروع
@@ -91,6 +101,54 @@ flutter build apk --release
 ### 3. بناء APK منفصل لكل معمارية
 ```bash
 flutter build apk --split-per-abi
+```
+
+## البناء بدون Firebase (مستقل)
+
+إذا كنت تريد بناء التطبيق بدون Firebase، اتبع هذه الخطوات:
+
+### 1. استخدام ملف pubspec بدون Firebase
+```bash
+# نسخ ملف pubspec بدون Firebase
+cp pubspec_no_firebase.yaml pubspec.yaml
+
+# تحديث الحزم
+flutter pub get
+```
+
+### 2. استخدام build.gradle بدون Firebase
+```bash
+# نسخ ملف build.gradle بدون Firebase
+cp android/app/build_no_firebase.gradle android/app/build.gradle
+```
+
+### 3. تحديث إعدادات التطبيق
+في ملف `lib/config/app_config.dart`، غير:
+```dart
+static const bool enableFirebase = false;
+```
+
+### 4. بناء APK بدون Firebase
+```bash
+# بناء للتطوير
+flutter build apk --debug
+
+# بناء للإنتاج
+flutter build apk --release
+```
+
+### 5. إعادة Firebase (اختياري)
+لإعادة Firebase:
+```bash
+# استعادة ملف pubspec الأصلي
+git checkout pubspec.yaml
+git checkout android/app/build.gradle
+
+# تحديث الحزم
+flutter pub get
+
+# تحديث إعدادات التطبيق
+# في lib/config/app_config.dart غير enableFirebase إلى true
 ```
 
 ## مواقع الملفات المبنية
