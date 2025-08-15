@@ -1,81 +1,240 @@
-# Semo
+# Index - تطبيق البث المرئي
 
-![Semo Screenshots](https://raw.githubusercontent.com/moses-mbaga/semo/d4ed0519764b78d729cc459476086928d0a2d54b/banner.png)
+<div align="center">
+  <h3>🎬 تطبيق بث الأفلام والمسلسلات المتطور</h3>
+  <p>تطبيق Flutter متقدم لبث المحتوى المرئي مع دعم كامل للغة العربية</p>
+</div>
 
-Semo is designed to offer a seamless movie and TV show streaming experience. With support for multiple streaming servers, synced watch progress, and fully customizable subtitles, Semo aims to be your go-to streaming app for enjoying your favorite content.
+---
 
-## Features
+## 📱 نظرة عامة
 
-🗂 Comprehensive Library
+**Index** هو تطبيق بث مرئي متطور مطور بتقنية Flutter، يوفر تجربة مشاهدة استثنائية للأفلام والمسلسلات مع واجهة مستخدم عربية أنيقة ودعم RTL كامل.
 
-- Access almost all movies and TV shows.
-- Explore a vast library to find something for everyone.
+### ✨ الميزات الرئيسية
 
-🎥 Stream Playback
+- 🎥 **مكتبة ضخمة**: آلاف الأفلام والمسلسلات
+- 🌐 **دعم اللغة العربية**: واجهة مستخدم عربية كاملة مع RTL
+- 👤 **تسجيل دخول متعدد**: Google Sign-in أو الدخول كضيف
+- ❤️ **قائمة المفضلة**: احفظ المحتوى المفضل لديك
+- 🔍 **بحث متقدم**: ابحث عن أي محتوى بسهولة
+- 📱 **تصميم متجاوب**: يعمل على جميع أحجام الشاشات
+- 🎨 **واجهة أنيقة**: تصميم Material Design حديث
+- 🔠 **ترجمات قابلة للتخصيص**: دعم ملفات .srt مع خيارات متقدمة
+- ⏳ **مزامنة التقدم**: احفظ موضع المشاهدة تلقائياً
 
-- Play movies and TV shows directly using high-quality HLS streams.
-- Multiple streaming servers to ensure uninterrupted viewing.
+---
 
-⏳ Synced Watch Progress
+## 🛠️ التقنيات المستخدمة
 
-- Automatically syncs playback progress for movies and episodes.
-- Never lose your spot, even if you switch devices or revisit content later.
+### Frontend
+- **Flutter** 3.35.1+ - إطار العمل الأساسي
+- **Dart** - لغة البرمجة
+- **Material Design 3** - نظام التصميم
 
-🔠 Customizable Subtitles
+### Backend & APIs
+- **Firebase** - المصادقة والتحليلات
+- **TMDB API** - بيانات الأفلام والمسلسلات
+- **SUBDL API** - الترجمات
 
-- Support for .srt subtitle files.
-- Fully customizable options
+### إدارة الحالة
+- **Flutter BLoC** - إدارة حالة التطبيق
+- **SharedPreferences** - التخزين المحلي
 
-## Download ![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/moses-mbaga/semo/total?link=https%3A%2F%2Fgithub.com%2Fmoses-mbaga%2Fsemo%2Freleases)
+### التدويل
+- **flutter_localizations** - دعم اللغات المتعددة
+- **intl** - تنسيق النصوص والتواريخ
 
-Download APK
-[![Download APK](https://custom-icon-badges.demolab.com/badge/-Download-F25278?style=for-the-badge&logo=download&logoColor=white&color=AB261D)](https://github.com/moses-mbaga/semo/releases)
+---
 
-Download IPA
-[![Download IPA](https://custom-icon-badges.demolab.com/badge/-Download-F25278?style=for-the-badge&logo=download&logoColor=white&color=AB261D)](https://github.com/moses-mbaga/semo/releases)
+## 📥 التحميل
 
-## Tech Stack
+[![تحميل APK](https://custom-icon-badges.demolab.com/badge/-تحميل%20APK-F25278?style=for-the-badge&logo=download&logoColor=white&color=AB261D)](https://github.com/sjso00747-creator/semo/releases)
 
-**Client:** Flutter
+[![تحميل IPA](https://custom-icon-badges.demolab.com/badge/-تحميل%20IPA-F25278?style=for-the-badge&logo=download&logoColor=white&color=AB261D)](https://github.com/sjso00747-creator/semo/releases)
 
-**Server:** Firebase
+---
 
-## Installation
+## 🚀 البدء السريع
 
-Prerequisites:
-- [Flutter SDK](https://flutter.dev/) (latest stable version).
-- A code editor (e.g., [Android Studio](https://developer.android.com/studio), [VSCode](https://code.visualstudio.com/)).
-- A Firebase account
+### المتطلبات الأساسية
 
-Instructions:
-
-- Clone the repository
 ```bash
-git clone https://github.com/moses-mbaga/semo.git
+Flutter SDK: >=3.0.0 <4.0.0
+Dart SDK: >=3.0.0 <4.0.0
+Android Studio / VS Code
+Git
+```
+
+### التثبيت
+
+1. **استنساخ المشروع**
+```bash
+git clone https://github.com/sjso00747-creator/semo.git
 cd semo
 ```
 
-- Install the dependencies:
+2. **تثبيت التبعيات**
 ```bash
 flutter pub get
 ```
 
-- Under the parent directory, create a ```.env``` file, which will contains required to run the app. An example can be found in ```.env.example```.
+3. **إعداد متغيرات البيئة**
+```bash
+# إنشاء ملف .env في الجذر
+TMDB_ACCESS_TOKEN=your_tmdb_token_here
+SUBDL_API_KEY=your_subdl_key_here
+```
 
-- Auto generate asset and env helpers using build_runner:
+4. **توليد ملفات التدويل**
+```bash
+flutter gen-l10n
+```
+
+5. **توليد ملفات الأصول**
 ```bash
 dart run build_runner build --delete-conflicting-outputs
 ```
 
-- Add Firebase to the app using FlutterFire CLI. You can follow insructions from the [official documentation](https://firebase.google.com/docs/flutter/setup)
+6. **إعداد Firebase**
+- اتبع تعليمات [الوثائق الرسمية](https://firebase.google.com/docs/flutter/setup)
+- استخدم FlutterFire CLI لإعداد المشروع
 
-- Run the app:
+7. **تشغيل التطبيق**
 ```bash
 flutter run
 ```
 
-## Support
+---
 
-If you encounter any issues or have suggestions, please open an issue in the [GitHub Issues](https://github.com/moses-mbaga/semo/issues) section.
+## 🌐 دعم اللغات
 
-Enjoy streaming with Semo! 🌟
+التطبيق يدعم حالياً:
+- 🇸🇦 **العربية** (افتراضي)
+- 🇺🇸 **الإنجليزية**
+
+### إضافة لغة جديدة
+
+1. أضف ملف `.arb` جديد في `lib/l10n/`
+2. حدث `l10n.yaml`
+3. شغل `flutter gen-l10n`
+
+---
+
+## 🔧 البناء والنشر
+
+### بناء APK للأندرويد
+
+```bash
+# Debug APK
+flutter build apk --debug
+
+# Release APK
+flutter build apk --release
+
+# Split APKs (مُوصى به)
+flutter build apk --split-per-abi
+```
+
+### بناء App Bundle
+
+```bash
+flutter build appbundle --release
+```
+
+للمزيد من التفاصيل، راجع [دليل بناء APK](BUILD_APK_GUIDE.md)
+
+---
+
+## 🔑 إعداد API Keys
+
+### TMDB API
+1. سجل في [The Movie Database](https://www.themoviedb.org/)
+2. احصل على API Key من لوحة التحكم
+3. أضف المفتاح في ملف `.env`
+
+### SUBDL API
+1. سجل في [SUBDL](https://subdl.com/)
+2. احصل على API Key
+3. أضف المفتاح في ملف `.env`
+
+---
+
+## 🤝 المساهمة
+
+نرحب بمساهماتكم! يرجى اتباع الخطوات التالية:
+
+1. Fork المشروع
+2. إنشاء فرع للميزة الجديدة (`git checkout -b feature/amazing-feature`)
+3. Commit التغييرات (`git commit -m 'Add amazing feature'`)
+4. Push للفرع (`git push origin feature/amazing-feature`)
+5. فتح Pull Request
+
+---
+
+## 🐛 الإبلاغ عن الأخطاء
+
+إذا واجهت أي مشاكل، يرجى:
+
+1. التحقق من [Issues الموجودة](https://github.com/sjso00747-creator/semo/issues)
+2. إنشاء Issue جديد مع:
+   - وصف واضح للمشكلة
+   - خطوات إعادة الإنتاج
+   - لقطات شاشة (إن أمكن)
+   - معلومات البيئة (OS, Flutter version, etc.)
+
+---
+
+## 👥 الفريق
+
+### 🏢 شركة Voxin
+**شركة ناشئة تأسست عام 2021**
+
+- 🌐 **الموقع الرسمي**: [voxin.netlify.app](https://voxin.netlify.app/)
+- 📧 **البريد الإلكتروني**: contact@voxin.com
+
+### 🚀 مشاريعنا الأخرى
+
+| المشروع | الوصف | الرابط |
+|:---:|:---:|:---:|
+| **Index** | تطبيق البث المرئي | [index-git-master-voxinappindexcom.vercel.app](https://index-git-master-voxinappindexcom.vercel.app/) |
+| **Postyy** | منصة التواصل الاجتماعي | [postyy.netlify.app](https://postyy.netlify.app/) |
+| **Build X** | قريباً... | 🔜 |
+
+---
+
+## 📞 الدعم والتواصل
+
+- 📧 **البريد**: support@voxin.com
+- 🐙 **GitHub Issues**: [إبلاغ عن مشكلة](https://github.com/sjso00747-creator/semo/issues)
+
+---
+
+## 🙏 شكر وتقدير
+
+- **Flutter Team** - لإطار العمل الرائع
+- **TMDB** - لقاعدة بيانات الأفلام المجانية
+- **Firebase** - للخدمات السحابية
+- **المجتمع العربي** - للدعم والتشجيع
+
+---
+
+<div align="center">
+  <p>صُنع بـ ❤️ في المملكة العربية السعودية</p>
+  <p>© 2024 Voxin. جميع الحقوق محفوظة.</p>
+  <p>استمتع بالمشاهدة مع Index! 🌟</p>
+</div>
+
+---
+
+## 📈 إحصائيات المشروع
+
+![GitHub stars](https://img.shields.io/github/stars/sjso00747-creator/semo?style=social)
+![GitHub forks](https://img.shields.io/github/forks/sjso00747-creator/semo?style=social)
+![GitHub issues](https://img.shields.io/github/issues/sjso00747-creator/semo)
+
+![Flutter](https://img.shields.io/badge/Flutter-02569B?style=for-the-badge&logo=flutter&logoColor=white)
+![Dart](https://img.shields.io/badge/Dart-0175C2?style=for-the-badge&logo=dart&logoColor=white)
+![Firebase](https://img.shields.io/badge/Firebase-039BE5?style=for-the-badge&logo=Firebase&logoColor=white)
+![Android](https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=android&logoColor=white)
+![iOS](https://img.shields.io/badge/iOS-000000?style=for-the-badge&logo=ios&logoColor=white)

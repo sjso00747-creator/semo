@@ -11,11 +11,11 @@ import "package:google_fonts/google_fonts.dart";
 import "l10n/app_localizations.dart";
 import "package:logger/logger.dart";
 import "package:package_info_plus/package_info_plus.dart";
-import "package:semo/bloc/app_bloc.dart";
-import "package:semo/bloc/app_state.dart";
-import "package:semo/firebase_options.dart";
-import "package:semo/screens/splash_screen.dart";
-import "package:semo/services/preferences.dart";
+import "package:index/bloc/app_bloc.dart";
+import "package:index/bloc/app_state.dart";
+import "package:index/firebase_options.dart";
+import "package:index/screens/splash_screen.dart";
+import "package:index/services/preferences.dart";
 import "package:universal_back_gesture/back_gesture_config.dart";
 import "package:universal_back_gesture/back_gesture_page_transitions_builder.dart";
 

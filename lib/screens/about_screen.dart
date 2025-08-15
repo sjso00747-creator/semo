@@ -1,7 +1,6 @@
 import "package:flutter/material.dart";
 import "package:url_launcher/url_launcher.dart";
-import "package:semo/screens/base_screen.dart";
-import "package:semo/gen/assets.gen.dart";
+import "package:index/screens/base_screen.dart";
 
 class AboutScreen extends BaseScreen {
   const AboutScreen({super.key});

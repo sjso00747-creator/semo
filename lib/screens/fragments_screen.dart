@@ -1,17 +1,18 @@
 import "dart:async";
 
 import "package:flutter/material.dart";
-import "package:semo/gen/assets.gen.dart";
-import "package:semo/screens/base_screen.dart";
-import "package:semo/screens/favorites_screen.dart";
-import "package:semo/models/fragment_screen.dart";
-import "package:semo/screens/movies_screen.dart";
-import "package:semo/screens/search_screen.dart";
-import "package:semo/screens/settings_screen.dart";
-import "package:semo/screens/tv_shows_screen.dart";
-import "package:semo/screens/about_screen.dart";
-import "package:semo/enums/media_type.dart";
-import "package:semo/utils/navigation_helper.dart";
+import "package:index/gen/assets.gen.dart";
+import "package:index/l10n/app_localizations.dart";
+import "package:index/screens/base_screen.dart";
+import "package:index/screens/favorites_screen.dart";
+import "package:index/models/fragment_screen.dart";
+import "package:index/screens/movies_screen.dart";
+import "package:index/screens/search_screen.dart";
+import "package:index/screens/settings_screen.dart";
+import "package:index/screens/tv_shows_screen.dart";
+import "package:index/screens/about_screen.dart";
+import "package:index/enums/media_type.dart";
+import "package:index/utils/navigation_helper.dart";
 
 class FragmentsScreen extends BaseScreen {
   const FragmentsScreen({
@@ -35,21 +36,21 @@ class _FragmentsScreenState extends BaseScreenState<FragmentsScreen> with Ticker
   void _initFragments() {
     setState(() {
       _fragmentScreens = <FragmentScreen>[
-        const FragmentScreen(
+        FragmentScreen(
           icon: Icons.movie,
-          title: "الأفلام",
+          title: AppLocalizations.of(context)!.movies,
           widget: MoviesScreen(),
           mediaType: MediaType.movies,
         ),
-        const FragmentScreen(
+        FragmentScreen(
           icon: Icons.video_library,
-          title: "المسلسلات",
+          title: AppLocalizations.of(context)!.tvShows,
           widget: TvShowsScreen(),
           mediaType: MediaType.tvShows,
         ),
         FragmentScreen(
           icon: Icons.favorite,
-          title: "المفضلة",
+          title: AppLocalizations.of(context)!.favorites,
           widget: TabBarView(
             controller: _tabController,
             children: const <Widget>[
@@ -58,14 +59,14 @@ class _FragmentsScreenState extends BaseScreenState<FragmentsScreen> with Ticker
             ],
           )
         ),
-        const FragmentScreen(
+        FragmentScreen(
           icon: Icons.settings,
-          title: "الإعدادات",
+          title: AppLocalizations.of(context)!.settings,
           widget: SettingsScreen()
         ),
-        const FragmentScreen(
+        FragmentScreen(
           icon: Icons.info,
-          title: "عنا",
+          title: AppLocalizations.of(context)!.about,
           widget: AboutScreen()
         ),
       ];
