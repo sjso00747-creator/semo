@@ -3,13 +3,14 @@ import "package:flutter_bloc/flutter_bloc.dart";
 import "package:font_awesome_flutter/font_awesome_flutter.dart";
 import "package:google_sign_in/google_sign_in.dart";
 import "package:lottie/lottie.dart";
-import "package:semo/bloc/app_bloc.dart";
-import "package:semo/bloc/app_event.dart";
-import "package:semo/components/snack_bar.dart";
-import "package:semo/gen/assets.gen.dart";
-import "package:semo/screens/base_screen.dart";
-import "package:semo/screens/fragments_screen.dart";
-import "package:semo/services/auth_service.dart";
+import "package:index/bloc/app_bloc.dart";
+import "package:index/bloc/app_event.dart";
+import "package:index/components/snack_bar.dart";
+import "package:index/gen/assets.gen.dart";
+import "package:index/l10n/app_localizations.dart";
+import "package:index/screens/base_screen.dart";
+import "package:index/screens/fragments_screen.dart";
+import "package:index/services/auth_service.dart";
 
 class LandingScreen extends BaseScreen {
   const LandingScreen({super.key}) : super(shouldListenToAuthStateChanges: false);
@@ -27,6 +28,29 @@ class _LandingScreenState extends BaseScreenState<LandingScreen> with TickerProv
 
     try {
       await _authService.signIn();
+
+      if (mounted) {
+        context.read<AppBloc>().add(LoadInitialData());
+
+        await navigate(
+          const FragmentsScreen(),
+          replace: true,
+        );
+      }
+    } catch (_) {
+      if (mounted) {
+        showSnackBar(context, "An error occurred");
+      }
+    }
+
+    spinner.dismiss();
+  }
+
+  Future<void> _authenticateAsGuest() async {
+    spinner.show();
+
+    try {
+      await _authService.signInAsGuest();
 
       if (mounted) {
         context.read<AppBloc>().add(LoadInitialData());
@@ -88,7 +112,65 @@ class _LandingScreenState extends BaseScreenState<LandingScreen> with TickerProv
                   children: <Widget>[
                     const Spacer(),
                     Text(
-                      "Continue with Google",
+                      AppLocalizations.of(context)!.continueWithGoogle,
+                      style: Theme.of(context).textTheme.displayMedium,
+                    ),
+                    const Spacer(),
+                  ],
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    ),
+  );
+
+  Widget _buildContinueAsGuestButton() => Container(
+    width: double.infinity,
+    height: 60,
+    margin: const EdgeInsets.only(top: 16),
+    child: ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: Colors.transparent,
+        side: const BorderSide(
+          width: 3,
+          color: Colors.white,
+        ),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15),
+        ),
+      ),
+      onPressed: () async {
+        await _authenticateAsGuest();
+      },
+      child: Container(
+        width: double.infinity,
+        child: Stack(
+          children: <Widget>[
+            const Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                FaIcon(
+                  FontAwesomeIcons.userSecret,
+                  color: Colors.white,
+                  size: 20,
+                ),
+              ],
+            ),
+            const Padding(
+              padding: EdgeInsets.only(
+                right: 16,
+              ),
+            ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Row(
+                  children: <Widget>[
+                    const Spacer(),
+                    Text(
+                      AppLocalizations.of(context)!.continueAsGuest,
                       style: Theme.of(context).textTheme.displayMedium,
                     ),
                     const Spacer(),
@@ -134,7 +216,7 @@ class _LandingScreenState extends BaseScreenState<LandingScreen> with TickerProv
               child: Container(
                 width: double.infinity,
                 child: Text(
-                  "Welcome!",
+                  AppLocalizations.of(context)!.welcome,
                   style: Theme.of(context).textTheme.titleLarge,
                   textAlign: TextAlign.left,
                 ),
@@ -145,7 +227,7 @@ class _LandingScreenState extends BaseScreenState<LandingScreen> with TickerProv
               child: Container(
                 width: double.infinity,
                 child: Text(
-                  "Discover a vast library of entertainment, from blockbuster hits to indie gems, all tailored to your tastes. Enjoy unlimited streaming on any device, create your personalized watchlist, and get ready for an unparalleled viewing experience.",
+                  AppLocalizations.of(context)!.appDescription,
                   style: Theme.of(context).textTheme.displayMedium,
                   textAlign: TextAlign.left,
                 ),
@@ -160,7 +242,12 @@ class _LandingScreenState extends BaseScreenState<LandingScreen> with TickerProv
                 margin: const EdgeInsets.only(
                   bottom: 18,
                 ),
-                child: _buildContinueWithGoogleButton(),
+                child: Column(
+                  children: [
+                    _buildContinueWithGoogleButton(),
+                    _buildContinueAsGuestButton(),
+                  ],
+                ),
               ),
             ),
           ],

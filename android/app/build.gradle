@@ -34,7 +34,7 @@ if (keystorePropertiesFile.exists()) {
 }
 
 android {
-    namespace = "com.mosesmbaga.semo"
+    namespace = "com.voxin.index"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = "27.2.12479018"
 
@@ -44,13 +44,12 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.mosesmbaga.semo"
+        applicationId = "com.voxin.index"
         minSdk = flutter.minSdkVersion
         targetSdk = flutter.targetSdkVersion
         versionCode = flutterVersionCode.toInteger()
         versionName = flutterVersionName
         multiDexEnabled true
-        minSdkVersion flutter.minSdkVersion
     }
 
     signingConfigs {
