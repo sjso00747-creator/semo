@@ -5,10 +5,13 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
+  String get appTitle => 'Index';
+
+  @override
   String get welcome => 'Welcome!';
 
   @override
-  String get appDescription => 'Discover a vast library of entertainment, from blockbuster hits to indie gems, all tailored to your tastes. Enjoy unlimited streaming on any device, create your personalized watchlist, and get ready for an unparalleled viewing experience.';
+  String get appDescription => 'Your ultimate streaming companion';
 
   @override
   String get continueWithGoogle => 'Continue with Google';

@@ -1,6 +1,7 @@
 {
   "@@locale": "en",
   "appTitle": "Index",
+  "appDescription": "Your ultimate streaming companion",
   "welcome": "Welcome!",
   "welcomeDescription": "Discover a vast library of entertainment, from blockbuster hits to indie gems, all tailored to your tastes. Enjoy unlimited streaming on any device, create your personalized watchlist, and get ready for an unparalleled viewing experience.",
   "continueWithGoogle": "Continue with Google",

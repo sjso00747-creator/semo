@@ -5,10 +5,13 @@ class AppLocalizationsAr extends AppLocalizations {
   AppLocalizationsAr([String locale = 'ar']) : super(locale);
 
   @override
+  String get appTitle => 'فهرس';
+
+  @override
   String get welcome => 'مرحباً!';
 
   @override
-  String get appDescription => 'اكتشف مكتبة واسعة من الترفيه، من الأفلام الرائجة إلى الجواهر المستقلة، كلها مصممة خصيصاً لأذواقك. استمتع بالبث اللامحدود على أي جهاز، وأنشئ قائمة المشاهدة الشخصية الخاصة بك، واستعد لتجربة مشاهدة لا مثيل لها.';
+  String get appDescription => 'رفيقك الأمثل للبث المباشر';
 
   @override
   String get continueWithGoogle => 'المتابعة مع جوجل';
