@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "package:url_launcher/url_launcher.dart";
+import "package:index/gen/assets.gen.dart";
 import "package:index/screens/base_screen.dart";
 
 class AboutScreen extends BaseScreen {
