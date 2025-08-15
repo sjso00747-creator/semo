@@ -45,6 +45,29 @@ class _LandingScreenState extends BaseScreenState<LandingScreen> with TickerProv
     spinner.dismiss();
   }
 
+  Future<void> _authenticateAsGuest() async {
+    spinner.show();
+
+    try {
+      await _authService.signInAsGuest();
+
+      if (mounted) {
+        context.read<AppBloc>().add(LoadInitialData());
+
+        await navigate(
+          const FragmentsScreen(),
+          replace: true,
+        );
+      }
+    } catch (_) {
+      if (mounted) {
+        showSnackBar(context, "An error occurred");
+      }
+    }
+
+    spinner.dismiss();
+  }
+
   Widget _buildContinueWithGoogleButton() => Container(
     width: double.infinity,
     height: 60,
@@ -88,7 +111,65 @@ class _LandingScreenState extends BaseScreenState<LandingScreen> with TickerProv
                   children: <Widget>[
                     const Spacer(),
                     Text(
-                      "Continue with Google",
+                      "المتابعة مع جوجل",
+                      style: Theme.of(context).textTheme.displayMedium,
+                    ),
+                    const Spacer(),
+                  ],
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    ),
+  );
+
+  Widget _buildContinueAsGuestButton() => Container(
+    width: double.infinity,
+    height: 60,
+    margin: const EdgeInsets.only(top: 16),
+    child: ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: Colors.transparent,
+        side: const BorderSide(
+          width: 3,
+          color: Colors.white,
+        ),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15),
+        ),
+      ),
+      onPressed: () async {
+        await _authenticateAsGuest();
+      },
+      child: Container(
+        width: double.infinity,
+        child: Stack(
+          children: <Widget>[
+            const Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                FaIcon(
+                  FontAwesomeIcons.userSecret,
+                  color: Colors.white,
+                  size: 20,
+                ),
+              ],
+            ),
+            const Padding(
+              padding: EdgeInsets.only(
+                right: 16,
+              ),
+            ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Row(
+                  children: <Widget>[
+                    const Spacer(),
+                    Text(
+                      "المتابعة كضيف",
                       style: Theme.of(context).textTheme.displayMedium,
                     ),
                     const Spacer(),
@@ -134,7 +215,7 @@ class _LandingScreenState extends BaseScreenState<LandingScreen> with TickerProv
               child: Container(
                 width: double.infinity,
                 child: Text(
-                  "Welcome!",
+                  "مرحباً!",
                   style: Theme.of(context).textTheme.titleLarge,
                   textAlign: TextAlign.left,
                 ),
@@ -145,7 +226,7 @@ class _LandingScreenState extends BaseScreenState<LandingScreen> with TickerProv
               child: Container(
                 width: double.infinity,
                 child: Text(
-                  "Discover a vast library of entertainment, from blockbuster hits to indie gems, all tailored to your tastes. Enjoy unlimited streaming on any device, create your personalized watchlist, and get ready for an unparalleled viewing experience.",
+                  "اكتشف مكتبة واسعة من الترفيه، من الأفلام الرائجة إلى الجواهر المستقلة، كلها مصممة خصيصاً لأذواقك. استمتع بالبث اللامحدود على أي جهاز، وأنشئ قائمة المشاهدة الشخصية الخاصة بك، واستعد لتجربة مشاهدة لا مثيل لها.",
                   style: Theme.of(context).textTheme.displayMedium,
                   textAlign: TextAlign.left,
                 ),
@@ -160,7 +241,12 @@ class _LandingScreenState extends BaseScreenState<LandingScreen> with TickerProv
                 margin: const EdgeInsets.only(
                   bottom: 18,
                 ),
-                child: _buildContinueWithGoogleButton(),
+                child: Column(
+                  children: [
+                    _buildContinueWithGoogleButton(),
+                    _buildContinueAsGuestButton(),
+                  ],
+                ),
               ),
             ),
           ],

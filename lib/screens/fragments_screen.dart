@@ -9,6 +9,7 @@ import "package:semo/screens/movies_screen.dart";
 import "package:semo/screens/search_screen.dart";
 import "package:semo/screens/settings_screen.dart";
 import "package:semo/screens/tv_shows_screen.dart";
+import "package:semo/screens/about_screen.dart";
 import "package:semo/enums/media_type.dart";
 import "package:semo/utils/navigation_helper.dart";
 
@@ -36,19 +37,19 @@ class _FragmentsScreenState extends BaseScreenState<FragmentsScreen> with Ticker
       _fragmentScreens = <FragmentScreen>[
         const FragmentScreen(
           icon: Icons.movie,
-          title: "Movies",
+          title: "الأفلام",
           widget: MoviesScreen(),
           mediaType: MediaType.movies,
         ),
         const FragmentScreen(
           icon: Icons.video_library,
-          title: "TV Shows",
+          title: "المسلسلات",
           widget: TvShowsScreen(),
           mediaType: MediaType.tvShows,
         ),
         FragmentScreen(
           icon: Icons.favorite,
-          title: "Favorites",
+          title: "المفضلة",
           widget: TabBarView(
             controller: _tabController,
             children: const <Widget>[
@@ -59,8 +60,13 @@ class _FragmentsScreenState extends BaseScreenState<FragmentsScreen> with Ticker
         ),
         const FragmentScreen(
           icon: Icons.settings,
-          title: "Settings",
+          title: "الإعدادات",
           widget: SettingsScreen()
+        ),
+        const FragmentScreen(
+          icon: Icons.info,
+          title: "عنا",
+          widget: AboutScreen()
         ),
       ];
     });
@@ -125,11 +131,11 @@ class _FragmentsScreenState extends BaseScreenState<FragmentsScreen> with Ticker
           tabs: const <Tab>[
             Tab(
               icon: Icon(Icons.movie),
-              text: "Movies",
+              text: "الأفلام",
             ),
             Tab(
               icon: Icon(Icons.video_library),
-              text: "TV Shows",
+              text: "المسلسلات",
             ),
           ],
         ) : null,

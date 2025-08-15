@@ -6,7 +6,9 @@ import "package:firebase_remote_config/firebase_remote_config.dart";
 import "package:flutter/material.dart";
 import "package:flutter/foundation.dart";
 import "package:flutter_bloc/flutter_bloc.dart";
+import "package:flutter_localizations/flutter_localizations.dart";
 import "package:google_fonts/google_fonts.dart";
+import "l10n/app_localizations.dart";
 import "package:logger/logger.dart";
 import "package:package_info_plus/package_info_plus.dart";
 import "package:semo/bloc/app_bloc.dart";
@@ -21,7 +23,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await _initializeFirebase();
   await AppPreferences.init();
-  runApp(const Semo());
+  runApp(const Index());
 }
 
 Future<void> _initializeFirebase() async {
@@ -68,8 +70,8 @@ Future<void> _initializeRemoteConfig() async {
   }
 }
 
-class Semo extends StatelessWidget {
-  const Semo({super.key});
+class Index extends StatelessWidget {
+  const Index({super.key});
 
   static const Color _primary = Color(0xFFAB261D);
   static const Color _background = Color(0xFF120201);
@@ -185,9 +187,12 @@ class Semo extends StatelessWidget {
     create: (BuildContext context) => AppBloc()..init(),
     child: BlocBuilder<AppBloc, AppState>(
       builder: (BuildContext context, AppState state) => MaterialApp(
-        title: "Semo",
+        title: "Index",
         debugShowCheckedModeBanner: false,
         theme: _buildTheme(),
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
+        locale: const Locale('ar', ''),
         home: const SplashScreen(),
       ),
     ),
